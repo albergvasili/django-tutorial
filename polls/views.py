@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Question
 
@@ -12,7 +12,8 @@ def index(req):
 
 
 def detail(req, question_id):
-    return HttpResponse(f'You are looking at question {question_id}')
+    question = get_object_or_404(Question, pk=question_id)
+    return render(req, 'polls/detail.html', {'question': question})
 
 
 def results(req, question_id):
